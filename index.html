@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Digits</title>
+</head>
+<body>
+    <div id="tabs">
+        <button id="tab1" onclick="SetCurrentNumber(0)"></button>
+        <button id="tab2" onclick="SetCurrentNumber(1)"></button>
+        <button id="tab3" onclick="SetCurrentNumber(2)"></button>
+        <button id="tab4" onclick="SetCurrentNumber(3)"></button>
+        <button id="tab5" onclick="SetCurrentNumber(4)"></button>
+    </div>
+    <div id="gamearea">
+        <h2></h2>
+
+        <div id="operands">
+            <div id="operand1"></div>
+            <div id="operand2"></div>
+            <div id="operand3"></div>
+            <div id="operand4"></div>
+            <div id="operand5"></div>
+            <div id="operand6"></div>
+        </div>
+
+        <div id="operators">
+            <div id="undo">↶</div>
+            <div id="add">+</div>
+            <div id="subtract">−</div>
+            <div id="multiply">×</div>
+            <div id="divide">÷</div>
+        </div>
+    </div>
+
+    <script src="./generation.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
