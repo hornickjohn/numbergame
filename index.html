@@ -8,11 +8,11 @@
 </head>
 <body>
     <div id="tabs">
-        <button id="tab1" onclick="SetCurrentNumber(0)"></button>
-        <button id="tab2" onclick="SetCurrentNumber(1)"></button>
-        <button id="tab3" onclick="SetCurrentNumber(2)"></button>
-        <button id="tab4" onclick="SetCurrentNumber(3)"></button>
-        <button id="tab5" onclick="SetCurrentNumber(4)"></button>
+        <button id="tab1" onclick="SetCurrentNumber(0, true)"></button>
+        <button id="tab2" onclick="SetCurrentNumber(1, true)"></button>
+        <button id="tab3" onclick="SetCurrentNumber(2, true)"></button>
+        <button id="tab4" onclick="SetCurrentNumber(3, true)"></button>
+        <button id="tab5" onclick="SetCurrentNumber(4, true)"></button>
     </div>
     <div id="gamearea">
         <h2></h2>
@@ -33,6 +33,10 @@
             <div id="multiply" onclick="ClickOperator(3)">×</div>
             <div id="divide" onclick="ClickOperator(4)">÷</div>
         </div>
+    </div>
+
+    <div id="solution">
+
     </div>
 
     <script src="./generation.js"></script>

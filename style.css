@@ -117,3 +117,11 @@ body {
     color:white;
     border:none;
 }
+
+#solution {
+    width:100%;
+    max-width:var(--maxw);
+    font-size: 20px;
+    font-style:italic;
+    color:black;
+}

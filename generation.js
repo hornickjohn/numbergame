@@ -1,5 +1,6 @@
-var puzzle = [];
+var outputs = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''];
 
+var puzzle = [];
 function GeneratePuzzle() {
     puzzle[0] = [Math.floor(51 + Math.random() * 49)];
     puzzle[1] = [Math.floor(101 + Math.random() * 99)];
@@ -112,5 +113,7 @@ function CopyAllButIndices(arr, a, b) {
     }
     return newArray;
 }
+
+//36525
 
 GeneratePuzzle();
