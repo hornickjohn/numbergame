@@ -68,11 +68,15 @@ async function Load() {
             localStorage.removeItem('jh_digits_puzzle');
 
             document.querySelector('#errormessage').classList.remove('hidden');
+            document.querySelector('#errormessage').textContent = "Error Loading Puzzle. Sorry.";
             document.querySelector('#content').classList.add('hidden');
 
-            return;
+            return
         }
     }
+
+    document.querySelector('#errormessage').classList.add('hidden');
+    document.querySelector('#content').classList.remove('hidden');
 
     for(var i = 0; i < tabs.length; i++) {
         tabs[i].textContent = puzzle[i][0];
