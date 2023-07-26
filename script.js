@@ -81,10 +81,28 @@ async function Load() {
     SetCurrentNumber(0, false);
 }
 
+function CopySolutions() {
+    var copystr = "Digits #" + localStorage.getItem("jh_digits_number");
+    for(var m = 0; m < solutionOutputs.length; m++) {
+        copystr += "\n" + puzzle[m][0];
+        copystr += "  ";
+        if(m == 0) { copystr +=  " "; }
+        for(var n = 0; n < solutionOutputs[m].length; n++) {
+            if(solutionOutputs[m][n].includes("÷")) { copystr += "➗"; }
+            else if(solutionOutputs[m][n].includes("×")) { copystr += "✖️"; }
+            else if(solutionOutputs[m][n].includes("−")) { copystr += "➖"; }
+            else if(solutionOutputs[m][n].includes("+")) { copystr += "➕"; }
+        }
+    }
+    navigator.clipboard.writeText(copystr);
+
+    document.querySelector('#popup').classList.add('hidden');
+}
+
 function SetCurrentNumber(num, manual) {
     //if num is too high, loop back around, and regardless just check if it's already solved. if we find they are ALL already solved, then we are done.
-
     
+
     if(!manual) {
         var done = true;
         for(var i = 0; i < 5; i++) {
@@ -105,26 +123,12 @@ function SetCurrentNumber(num, manual) {
         }
         if(done) {
             //WE ARE DONE WITH ENTIRE PUZZLE GRATS
-            if(confirm("Congratulations! Push \"OK\" to copy game stats to clipboard.")) {
-                var copystr = "Digits #" + localStorage.getItem("jh_digits_number");
-                for(var m = 0; m < solutionOutputs.length; m++) {
-                    copystr += "\n" + puzzle[m][0];
-                    copystr += "  ";
-                    if(m == 0) { copystr +=  " "; }
-                    for(var n = 0; n < solutionOutputs[m].length; n++) {
-                        if(solutionOutputs[m][n].includes("÷")) { copystr += "➗"; }
-                        else if(solutionOutputs[m][n].includes("×")) { copystr += "✖️"; }
-                        else if(solutionOutputs[m][n].includes("−")) { copystr += "➖"; }
-                        else if(solutionOutputs[m][n].includes("+")) { copystr += "➕"; }
-                    }
-                }
-                navigator.clipboard.writeText(copystr);
-            }
+            document.querySelector('#popup').classList.remove('hidden');
         }
-    } else {
-        currentNumber = num;
     }
     
+    currentNumber = num;
+
     tabs.forEach(tab => {
         tab.classList.remove("selected");
     });

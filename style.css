@@ -126,6 +126,34 @@ body {
     color:black;
 }
 
+#popup {
+    position:absolute;
+    width:80%;
+    margin-left:10%;
+    top:20px;
+    border:2px solid black;
+    border-radius:5px;
+    background-color:white;
+    padding:20px;
+}
+#popup p {
+    font-size:30px;
+}
+#popup button {
+    margin:20px;
+    font-size:26px;
+    font-weight:bold;
+    padding:10px 25px;
+    border-radius:10px;
+}
+#copy {
+    background-color:yellow;
+}
+#copycancel {
+    background-color:white;
+    border:2px solid black;
+}
+
 .hidden {
-    display:hidden;
+    display:none;
 }
