@@ -1,3 +1,5 @@
+var puzzle = [[0],[0],[0],[0],[0]];
+
 var currentNumber = 0;
 
 var operandStates = [];
@@ -17,13 +19,12 @@ var operators = document.querySelectorAll("#operators div");
 var operands = document.querySelectorAll("#operands div");
 var operandSpans = document.querySelectorAll("#operands div span");
 
-function Load() {
+async function Load() {
     var date = localStorage.getItem('jh_digits_date');
     var loaded = false;
     if(date) {
-        var today = new Date();
-        var str = today.getMonth() + " " + today.getDate() + " " + today.getFullYear();
-        if(date == str) {
+        var today = Math.floor(new Date().valueOf() / 86400000.0);
+        if(date == today) {
             //same day as saved
             puzzle = JSON.parse(localStorage.getItem('jh_digits_puzzle'));
             operandStates = JSON.parse(localStorage.getItem('jh_digits_operandStates'));
@@ -32,13 +33,45 @@ function Load() {
         }
     }
     if(!loaded) {
-        //we're on a new day, flush data and start anew
-        localStorage.setItem('jh_digits_operandStates', JSON.stringify(operandStates));
-        localStorage.setItem('jh_digits_solutionOutputs', JSON.stringify(solutionOutputs));
-        localStorage.setItem('jh_digits_date', str);
+        var day = Math.floor(new Date().valueOf() / 86400000.0);
+        var success = false;
+        await fetch('https://jhdigitsnode.azurewebsites.net/puzzle/' + day).then(response=>response.json()).then(data=>{ 
+            if(data) {
+                //convert data.puzzle string to actual puzzle data in the array, and maybe console log the minimum op data
+                var indpuzz = data.puzzle.split('`');
+                for(var i = 0; i < indpuzz.length; i++) {
+                    var pieces = indpuzz[i].split('@');
+                    puzzle[i][0] = Number(pieces[0]);
+                    pieces[2].split('#').forEach(operand => {
+                        puzzle[i].push(Number(operand));
+                    });
+                    console.log(puzzle[i][0] + " - Minimum Operations: " + pieces[1]);
+                }
 
-        //fetch new puzzle data from server and setItem it, TODO maybe move this before the other stuff and bail on all of it if bad server response
-        //fetch puzzle # as well in jh_digits_number
+                localStorage.setItem('jh_digits_puzzle', JSON.stringify(puzzle));
+                localStorage.setItem("jh_digits_number", data.number);
+                localStorage.setItem('jh_digits_operandStates', JSON.stringify(operandStates));
+                localStorage.setItem('jh_digits_solutionOutputs', JSON.stringify(solutionOutputs));
+                localStorage.setItem('jh_digits_date', day);
+
+                success = true;
+            }
+        }).catch(err=>{
+
+        });
+
+        if(!success) {
+            localStorage.removeItem('jh_digits_operandStates');
+            localStorage.removeItem('jh_digits_solutionOutputs');
+            localStorage.removeItem('jh_digits_date');
+            localStorage.removeItem('jh_digits_number');
+            localStorage.removeItem('jh_digits_puzzle');
+
+            document.querySelector('#errormessage').classList.remove('hidden');
+            document.querySelector('#content').classList.add('hidden');
+
+            return;
+        }
     }
 
     for(var i = 0; i < tabs.length; i++) {
@@ -51,6 +84,7 @@ function Load() {
 function SetCurrentNumber(num, manual) {
     //if num is too high, loop back around, and regardless just check if it's already solved. if we find they are ALL already solved, then we are done.
 
+    
     if(!manual) {
         var done = true;
         for(var i = 0; i < 5; i++) {
@@ -71,7 +105,6 @@ function SetCurrentNumber(num, manual) {
         }
         if(done) {
             //WE ARE DONE WITH ENTIRE PUZZLE GRATS
-            console.log(document.hasFocus());
             if(confirm("Congratulations! Push \"OK\" to copy game stats to clipboard.")) {
                 var copystr = "Digits #" + localStorage.getItem("jh_digits_number");
                 for(var m = 0; m < solutionOutputs.length; m++) {
@@ -86,9 +119,7 @@ function SetCurrentNumber(num, manual) {
                     }
                 }
                 navigator.clipboard.writeText(copystr);
-                console.log(document.hasFocus());
             }
-            return;
         }
     } else {
         currentNumber = num;

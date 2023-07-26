@@ -125,3 +125,7 @@ body {
     font-style:italic;
     color:black;
 }
+
+.hidden {
+    display:hidden;
+}
