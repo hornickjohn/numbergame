@@ -15,7 +15,7 @@ body {
 }
 
 #tabs {
-    margin:10px 10px 0 10px;
+    margin-top:10px;
     font-size:0;
     width:100%;
     max-width:var(--maxw);
@@ -40,7 +40,7 @@ body {
 #gamearea {
     width:100%;
     max-width:var(--maxw);
-    margin:0 10px 10px 10px;
+    margin:0;
     text-align:center;
     border-left:1px solid black;
     border-bottom:1px solid black;
@@ -92,19 +92,19 @@ body {
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    margin-top:10px
+    margin:20px 0;
 }
 #operators div {
     color:white;
     background-color:black;
-    width:40px;
-    height:40px;
+    width:55px;
+    height:55px;
     border-radius:50%;
     display:flex;
     justify-content:center;
     align-items: center;
     font-weight:bold;
-    font-size:32px;
+    font-size:34px;
     margin:8px;
     user-select:none;
 }
