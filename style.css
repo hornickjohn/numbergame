@@ -154,6 +154,10 @@ body {
     border:2px solid black;
 }
 
+#errormessage p {
+    font-size:40px;
+}
+
 #content.hidden {
     display:none;
 }
