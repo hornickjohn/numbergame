@@ -22,9 +22,13 @@ var operandSpans = document.querySelectorAll("#operands div span");
 async function Load() {
     var date = localStorage.getItem('jh_digits_date');
     var loaded = false;
+
+    //get local day
+    var offset = new Date().getTimezoneOffset() * 60000;
+    var day = Math.floor((Date.now() - offset) / 86400000.0);
+
     if(date) {
-        var today = Math.floor(new Date().valueOf() / 86400000.0);
-        if(date == today) {
+        if(date == day) {
             //same day as saved
             puzzle = JSON.parse(localStorage.getItem('jh_digits_puzzle'));
             operandStates = JSON.parse(localStorage.getItem('jh_digits_operandStates'));
@@ -33,7 +37,6 @@ async function Load() {
         }
     }
     if(!loaded) {
-        var day = Math.floor(new Date().valueOf() / 86400000.0);
         var success = false;
         await fetch('https://jhdigitsnode.azurewebsites.net/puzzle/' + day).then(response=>response.json()).then(data=>{ 
             if(data) {
@@ -71,7 +74,7 @@ async function Load() {
             document.querySelector('#errormessage').textContent = "Error Loading Puzzle. Sorry.";
             document.querySelector('#content').classList.add('hidden');
 
-            return
+            return;
         }
     }
 

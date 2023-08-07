@@ -99,13 +99,14 @@ body {
     background-color:black;
     width:55px;
     height:55px;
+    max-width:17%;
     border-radius:50%;
     display:flex;
     justify-content:center;
     align-items: center;
     font-weight:bold;
     font-size:34px;
-    margin:8px;
+    margin:1%;
     user-select:none;
 }
 #operators #undo {
